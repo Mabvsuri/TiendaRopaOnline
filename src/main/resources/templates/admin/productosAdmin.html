@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Productos Administrador</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Listado de Productos</h1>
+        
+        <!-- Botón para añadir producto -->
+        <a href="/nuevoProducto" class="btn btn-primary mb-3">Añadir Producto</a>
+
+        <!-- Tabla de productos -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto : ${productos}">
+                    <td th:text="${producto.idProducto}">1</td>
+                    <td th:text="${producto.nombre}">Nombre del Producto</td>
+                    <td th:text="${producto.descripcion}">Descripción del Producto</td>
+                    <td th:text="${producto.precio}">0.00</td>
+                    <td>
+                        <!-- Botón para editar producto -->
+                        <a th:href="@{/editarProducto/{id}(id=${producto.idProducto})}" class="btn btn-warning btn-sm">Editar</a>
+                        <!-- Botón para eliminar producto -->
+                        <a th:href="@{/eliminarProductoAdmin/{codigo}(codigo=${producto.idProducto})}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
