@@ -103,19 +103,27 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </nav>
     <!-- Close Header -->
+	
+	<div style="gap: 50px;">
+		<span>&nbsp;</span>
+	</div>
+	<!-- Mensajes de éxito o error -->
+	
+	<div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+	<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
 
 	<div class="container">
 	    <div class="row">
 	        <!-- Filtros a la izquierda -->
 	        <div class="col-lg-3">
 	            <h2>Filtros</h2>
-				<form action="#" method="get">
-				    <!-- Filtro de Categorías -->
+				<form action="/filtrar" method="get">
 				    <div>
 				        <h4>Categorías</h4>
 				        <div th:each="categoria : ${categorias}">
-				            <input type="checkbox" th:value="${categoria.nombre}" name="categoria" th:id="${categoria.nombre}" />
-				            <label th:for="${categoria.nombre}" th:text="${categoria.nombre}">Categoría</label> <!-- Muestra el nombre de la categoría -->
+				            <input type="checkbox" th:value="${categoria.idCategoria}" name="categorias" th:id="${categoria.nombre}" />
+				            <label th:for="${categoria.nombre}" th:text="${categoria.nombre}">Categoría</label>
 				        </div>
 				    </div>
 				    <button type="submit" class="btn btn-primary mt-3">Aplicar Filtros</button>
@@ -142,7 +150,6 @@ https://templatemo.com/tm-559-zay-shop
 	        </div>
 	    </div>
 	</div>
-
 
     <!-- Start Brands -->
     <section class="bg-light py-5">

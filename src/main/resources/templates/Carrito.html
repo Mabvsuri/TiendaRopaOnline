@@ -15,65 +15,66 @@
         <h1 class="text-center">Carrito de Compras</h1>
 
         <!-- Mensaje si el carrito está vacío -->
-        <div th:if="${#lists.isEmpty(productos)}" class="alert alert-warning text-center">
+        <div th:if="${#lists.isEmpty(carrito.obtenerProductos())}" class="alert alert-warning text-center">
             El carrito está vacío.
         </div>
 
-        <!-- Tabla de productos en el carrito -->
-        <div class="table-responsive mt-4" th:if="${!#lists.isEmpty(productos)}">
-            <table class="table table-bordered table-hover">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Producto</th>
-                        <th>Descripción</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Total</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-				<tbody>
-				    <!-- Iterar sobre los productos en el carrito -->
-				    <tr th:each="producto : ${productos}">
-				        <td th:text="${producto.nombre}">Nombre del Producto</td>
-				        <td th:text="${producto.descripcion}">Descripción del Producto</td>
-				        <td th:text="${producto != null ? producto.precio : 'Precio no disponible'}">$0.00</td>
-				        <td>
-				            <input type="number" th:id="'cantidad_' + ${producto.idProducto}" 
-				                   th:name="'cantidad_' + ${producto.idProducto}" min="1" 
-				                   th:value="${carrito.obtenerCantidad(producto)}" />
-				        </td>
-				        <td th:text="${producto != null ? producto.precio : 'Precio no disponible'}">$0.00</td>
-				        <td>
-				            <a th:href="@{/eliminarProducto/{codigo}(codigo=${producto.idProducto})}" 
-				               class="btn btn-danger btn-sm">Eliminar</a>
-				        </td>
-				    </tr>
-				</tbody>
-            </table>
-        </div>
-
-        <!-- Resumen del carrito -->
-		<div class="row">
-		    <div class="col-md-6 offset-md-6">
-		        <div class="card">
-		            <div class="card-body">
-		                <ul class="list-group list-group-flush">
-		                    <li class="list-group-item">Total: 
-		                        <span class="float-right" th:text="${carrito.precioTotal()}">S/. 0.00</span>
-		                    </li>
-		                </ul>
-		            </div>
-		            <div class="card-footer text-right">
-		                <a href="/productos" class="btn btn-secondary">Seguir Comprando</a>
-		                <a href="/comprar" class="btn btn-primary">Comprar Ahora</a>
-		            </div>
-		        </div>
-		    </div>
+		<!-- Tabla de productos en el carrito -->
+		<div class="table-responsive mt-4" th:if="${!#lists.isEmpty(carrito.obtenerProductos())}">
+		    <table class="table table-bordered table-hover">
+		        <thead class="thead-light">
+		            <tr>
+		                <th>Producto</th>
+		                <th>Descripción</th>
+		                <th>Color</th>
+		                <th>Talla</th>
+		                <th>Precio</th>
+		                <th>Cantidad</th>
+		                <th>Total</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <!-- Iterar sobre los productos en el carrito -->
+		            <tr th:each="item : ${carrito.obtenerProductos()}">
+		                <td th:text="${item.producto.nombre}">Nombre del Producto</td>
+		                <td th:text="${item.producto.descripcion}">Descripción del Producto</td>
+		                <td th:text="${item.color}">Color</td>
+		                <td th:text="${item.talla}">Talla</td>
+		                <td th:text="${item.producto.precio}">S/. 0.00</td>
+						<td>
+							<div class="input-group">
+							    <a th:href="@{/actualizarCantidad/{codigo}/{accion}(codigo=${item.producto.idProducto}, accion='disminuir')}" class="btn btn-outline-secondary">-</a>
+							    <span th:text="${item.cantidad}">1</span>
+							    <a th:href="@{/actualizarCantidad/{codigo}/{accion}(codigo=${item.producto.idProducto}, accion='aumentar')}" class="btn btn-outline-secondary">+</a>
+							</div>
+						</td>
+		                <td th:text="${item.producto.precio * item.cantidad}">0.00</td>
+		            </tr>
+		        </tbody>
+		    </table>
 		</div>
 
-    <!-- Bootstrap JS -->
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+        <!-- Resumen del carrito -->
+        <div class="row">
+            <div class="col-md-6 offset-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Total: 
+                                <span class="float-right" th:text="${carrito.precioTotal()}">S/. 0.00</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer text-right">
+                        <a href="/productos" class="btn btn-secondary">Seguir Comprando</a>
+                        <a href="/comprar" class="btn btn-primary">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    </div>
 </body>
 </html>
-

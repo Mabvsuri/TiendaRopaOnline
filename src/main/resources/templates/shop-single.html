@@ -136,30 +136,52 @@ https://templatemo.com/tm-559-zay-shop
 	                </div>
 	            </div>
 	            <!-- col end -->
-	            <div class="col-lg-7 mt-5">
-	                <div class="card">
-	                    <div class="card-body">
-	                        <!-- El nombre del producto se llenará desde el controlador -->
-	                        <h1 class="h2" th:text="${producto.nombre}"></h1>
-	                        <!-- El precio del producto -->
-	                        <p class="h3 py-2" th:text="${producto.precio}"></p>
-	                        
-	                        <!-- Descripción del producto -->
-	                        <h6>Descripción:</h6>
-	                        <p th:text="${producto.descripcion}"></p>
+				<div class="col-lg-7 mt-5">
+				    <div class="card">
+				        <div class="card-body">
+				            <!-- El nombre del producto se llenará desde el controlador -->
+				            <h1 class="h2" th:text="${producto.nombre}"></h1>
+				            <!-- El precio del producto -->
+				            <p class="h3 py-2" th:text="${producto.precio}"></p>
+				            
+				            <!-- Descripción del producto -->
+				            <h6>Descripción:</h6>
+				            <p th:text="${producto.descripcion}"></p>
 
-	                        <!-- Botón para añadir al carrito -->
 							<form th:action="@{/añadirProducto/{codigo}(codigo=${producto.idProducto})}" method="POST">
 							    <input type="hidden" name="product-id" th:value="${producto.idProducto}">
+							    
+							    <!-- Selección de Talla -->
+							    <div class="form-group">
+							        <h6>Talla:</h6>
+							        <div class="btn-group" data-toggle="buttons">
+							            <label class="btn btn-outline-primary" th:each="talla : ${tallasUnicas}">
+							                <input type="radio" name="talla" th:value="${talla}" autocomplete="off" required>
+							                <span th:text="${talla}">Talla</span>
+							            </label>
+							        </div>
+							    </div>
+
+							    <!-- Selección de Color -->
+							    <div class="form-group mt-3">
+							        <h6>Color:</h6>
+							        <div class="btn-group" data-toggle="buttons">
+							            <label class="btn btn-outline-secondary" th:each="color : ${coloresUnicos}">
+							                <input type="radio" name="color" th:value="${color}" autocomplete="off" required>
+							                <span th:text="${color}">Color</span>
+							            </label>
+							        </div>
+							    </div>
+								
 							    <div class="row pb-3">
 							        <div class="col d-grid">
 							            <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocart">Añadir al carrito</button>
 							        </div>
 							    </div>
 							</form>
-	                    </div>
-	                </div>
-	            </div>
+						</div>
+				    </div>
+				</div>
 	        </div>
 	    </div>
 	</section>

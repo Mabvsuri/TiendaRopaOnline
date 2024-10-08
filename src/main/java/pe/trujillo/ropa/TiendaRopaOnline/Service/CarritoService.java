@@ -19,16 +19,16 @@ public class CarritoService {
         this.carrito = new Carrito();
     }
 
-    // Método actualizado para añadir producto con cantidad
-    public void añadirProducto(Producto producto, int cantidad) {
-        carrito.añadirProducto(producto, cantidad);
+    // Añadir producto con talla y color
+    public void añadirProducto(Producto producto, String talla, String color) {
+        carrito.añadirProducto(producto, talla, color);
     }
 
-    public void eliminarProducto(Producto producto) {
-        carrito.eliminarProducto(producto);
+    public void eliminarProducto(Producto producto, String talla, String color) {
+        carrito.eliminarProducto(producto, talla, color);
     }
 
-    public List<Producto> obtenerProductos() {
+    public List<ItemCarrito> obtenerProductos() {
         return carrito.obtenerProductos();
     }
 
@@ -40,8 +40,8 @@ public class CarritoService {
         carrito.vaciarCarrito();
     }
     
-    // Método para obtener la cantidad de un producto en el carrito
-    public int obtenerCantidad(Producto producto) {
-        return carrito.obtenerCantidad(producto);
+    // Obtener la cantidad de un producto con una talla y color específicos
+    public int obtenerCantidad(Producto producto, String talla, String color) {
+        return carrito.obtenerCantidad(producto, talla, color);
     }
 }

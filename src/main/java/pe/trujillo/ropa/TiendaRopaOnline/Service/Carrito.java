@@ -1,43 +1,70 @@
 package pe.trujillo.ropa.TiendaRopaOnline.Service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import pe.trujillo.ropa.TiendaRopaOnline.Model.Producto;
 
 public class Carrito {
 
-    private Map<Producto, Integer> productos;
+    private List<ItemCarrito> items;
 
     public Carrito() {
-        this.productos = new HashMap<>();
+        this.items = new ArrayList<>();
     }
 
-    public void añadirProducto(Producto producto, int cantidad) {
-        productos.put(producto, productos.getOrDefault(producto, 0) + cantidad);
+    // Añadir producto con talla y color
+    public void añadirProducto(Producto producto, String talla, String color) {
+        for (ItemCarrito item : items) {
+            if (item.getProducto().equals(producto) && item.getTalla().equals(talla) && item.getColor().equals(color)) {
+                item.setCantidad(item.getCantidad() + 1);
+                return;
+            }
+        }
+        items.add(new ItemCarrito(producto, 1, talla, color));
     }
 
-    public void eliminarProducto(Producto producto) {
-        productos.remove(producto);
+    
+    public void disminuirCantidad(Producto producto, String talla, String color) {
+        Iterator<ItemCarrito> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            ItemCarrito item = iterator.next();
+            if (item.getProducto().equals(producto) && item.getTalla().equals(talla) && item.getColor().equals(color)) {
+                if (item.getCantidad() > 1) {
+                    item.setCantidad(item.getCantidad() - 1);
+                } else {
+                    iterator.remove(); // Esto evita ConcurrentModificationException
+                }
+                return;
+            }
+        }
     }
 
-    public List<Producto> obtenerProductos() {
-        return productos.keySet().stream().collect(Collectors.toList());
+    public void eliminarProducto(Producto producto, String talla, String color) {
+        items.removeIf(item -> item.getProducto().equals(producto) && item.getTalla().equals(talla) && item.getColor().equals(color));
+    }
+
+    public List<ItemCarrito> obtenerProductos() {
+        return items;
     }
 
     public double precioTotal() {
-        return productos.entrySet().stream()
-            .mapToDouble(entry -> entry.getKey().getPrecio() * entry.getValue())
+        return items.stream()
+            .mapToDouble(item -> item.getProducto().getPrecio() * item.getCantidad())
             .sum();
     }
 
     public void vaciarCarrito() {
-        productos.clear();
+        items.clear();
     }
 
-    public int obtenerCantidad(Producto producto) {
-        return productos.getOrDefault(producto, 0);
+    public int obtenerCantidad(Producto producto, String talla, String color) {
+        for (ItemCarrito item : items) {
+            if (item.getProducto().equals(producto) && item.getTalla().equals(talla) && item.getColor().equals(color)) {
+                return item.getCantidad();
+            }
+        }
+        return 0;
     }
 }

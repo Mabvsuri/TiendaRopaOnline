@@ -1,15 +1,23 @@
 package pe.trujillo.ropa.TiendaRopaOnline.Data;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import pe.trujillo.ropa.TiendaRopaOnline.Model.Administrador;
 import pe.trujillo.ropa.TiendaRopaOnline.Model.Categoria;
+import pe.trujillo.ropa.TiendaRopaOnline.Model.Color;
 import pe.trujillo.ropa.TiendaRopaOnline.Model.Producto;
+import pe.trujillo.ropa.TiendaRopaOnline.Model.Stock;
+import pe.trujillo.ropa.TiendaRopaOnline.Model.Talla;
 import pe.trujillo.ropa.TiendaRopaOnline.Repository.IAdministradorRepository;
 import pe.trujillo.ropa.TiendaRopaOnline.Repository.ICategoriaRepository;
+import pe.trujillo.ropa.TiendaRopaOnline.Repository.IColorRepository;
 import pe.trujillo.ropa.TiendaRopaOnline.Repository.IProductoRepository;
+import pe.trujillo.ropa.TiendaRopaOnline.Repository.IStockRepository;
+import pe.trujillo.ropa.TiendaRopaOnline.Repository.ITallaRepository;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -23,85 +31,104 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     private IAdministradorRepository administradorRepository;
     
+    @Autowired
+    private ITallaRepository tallaRepository;
+    
+    @Autowired
+    private IColorRepository colorRepository;
+    
+    @Autowired
+    private IStockRepository stockRepository;
+    
     @Override
     public void run(String... args) throws Exception {
         
-        // Categorías
-        Categoria categoria1 = new Categoria();
-        categoria1.setNombre("Polos");
-        categoriaRepository.save(categoria1);
+    	// Crear tallas
+    	Talla tallaS = new Talla();
+    	tallaS.setTalla("S");
+    	tallaRepository.save(tallaS);
 
-        Categoria categoria2 = new Categoria();
-        categoria2.setNombre("Pantalones");
-        categoriaRepository.save(categoria2);
-        
-        Categoria categoria3 = new Categoria();
-        categoria3.setNombre("Zapatos");
-        categoriaRepository.save(categoria3);
-        
-        // Productos
-        Producto producto1 = new Producto();
-        producto1.setNombre("Polo Azul");
-        producto1.setDescripcion("Polo de algodón azul.");
-        producto1.setPrecio(19.99);
-        producto1.setCategoria(categoria1);
-        productoRepository.save(producto1);
-        
-        Producto producto2 = new Producto();
-        producto2.setNombre("Polo Negro");
-        producto2.setDescripcion("Polo de algodón negro.");
-        producto2.setPrecio(24.99);
-        producto2.setCategoria(categoria1);
-        productoRepository.save(producto2);
-        
-        Producto producto3 = new Producto();
-        producto3.setNombre("Polo Rojo");
-        producto3.setDescripcion("Polo de algodón rojo.");
-        producto3.setPrecio(22.99);
-        producto3.setCategoria(categoria1);
-        productoRepository.save(producto3);
-        
-        Producto producto4 = new Producto();
-        producto4.setNombre("Pantalón Jeans");
-        producto4.setDescripcion("Pantalón de mezclilla.");
-        producto4.setPrecio(39.99);
-        producto4.setCategoria(categoria2);
-        productoRepository.save(producto4);
-        
-        Producto producto5 = new Producto();
-        producto5.setNombre("Pantalón Corto");
-        producto5.setDescripcion("Pantalón corto de verano.");
-        producto5.setPrecio(29.99);
-        producto5.setCategoria(categoria2);
-        productoRepository.save(producto5);
-        
-        Producto producto6 = new Producto();
-        producto6.setNombre("Chino Verde");
-        producto6.setDescripcion("Chino de algodón verde.");
-        producto6.setPrecio(34.99);
-        producto6.setCategoria(categoria2);
-        productoRepository.save(producto6);
-        
-        Producto producto7 = new Producto();
-        producto7.setNombre("Zapatos Deportivos");
-        producto7.setDescripcion("Zapatos cómodos para deportes.");
-        producto7.setPrecio(49.99);
-        producto7.setCategoria(categoria3);
-        productoRepository.save(producto7);
-        
-        Producto producto8 = new Producto();
-        producto8.setNombre("Zapatos de Vestir");
-        producto8.setDescripcion("Zapatos elegantes para ocasiones especiales.");
-        producto8.setPrecio(69.99);
-        producto8.setCategoria(categoria3);
-        productoRepository.save(producto8);
-        
-        Producto producto9 = new Producto();
-        producto9.setNombre("Botines");
-        producto9.setDescripcion("Botines de cuero.");
-        producto9.setPrecio(59.99);
-        producto9.setCategoria(categoria3);
-        productoRepository.save(producto9);
+    	Talla tallaM = new Talla();
+    	tallaM.setTalla("M");
+    	tallaRepository.save(tallaM);
+
+    	Talla tallaL = new Talla();
+    	tallaL.setTalla("L");
+    	tallaRepository.save(tallaL);
+    	
+    	// Crear Colores
+    	Color colorBlanco = new Color();
+    	colorBlanco.setNombre("blanco");
+    	colorRepository.save(colorBlanco);
+    	
+    	Color colorNegro = new Color();
+    	colorNegro.setNombre("Negro");
+    	colorRepository.save(colorNegro);
+
+    	// Categorías
+    	Categoria categoria1 = new Categoria();
+    	categoria1.setNombre("Polos");
+    	categoriaRepository.save(categoria1);
+
+    	Categoria categoria2 = new Categoria();
+    	categoria2.setNombre("Pantalones");
+    	categoriaRepository.save(categoria2);
+    	        
+    	Categoria categoria3 = new Categoria();
+    	categoria3.setNombre("Zapatos");
+    	categoriaRepository.save(categoria3);
+
+    	// Productos
+    	Producto producto1 = new Producto();
+    	producto1.setNombre("Polo Casual");
+    	producto1.setDescripcion("Polo de algodón casual.");
+    	producto1.setPrecio(19.99);
+    	producto1.setCategoria(categoria1);
+    	productoRepository.save(producto1);
+
+    	// Crear stock para el producto 1
+    	for (Talla talla : List.of(tallaS, tallaM, tallaL)) {
+    	    Stock stock1Blanco = new Stock();
+    	    stock1Blanco.setCantidad(2); // 2 en stock
+    	    stock1Blanco.setProducto(producto1);
+    	    stock1Blanco.setTalla(talla);
+    	    stock1Blanco.setColor(colorBlanco);
+    	    stockRepository.save(stock1Blanco);
+
+    	    Stock stock1Negro = new Stock();
+    	    stock1Negro.setCantidad(2); // 2 en stock
+    	    stock1Negro.setProducto(producto1);
+    	    stock1Negro.setTalla(talla);
+    	    stock1Negro.setColor(colorNegro);
+    	    stockRepository.save(stock1Negro);
+    	}
+
+    	// Crear otros productos
+    	Producto producto2 = new Producto();
+    	producto2.setNombre("Polo Deportivo");
+    	producto2.setDescripcion("Polo deportivo cómodo.");
+    	producto2.setPrecio(24.99);
+    	producto2.setCategoria(categoria1);
+    	productoRepository.save(producto2);
+
+    	// Crear stock para el producto 2
+    	for (Talla talla : List.of(tallaS, tallaM, tallaL)) {
+    	    Stock stock2Blanco = new Stock();
+    	    stock2Blanco.setCantidad(2); // 2 en stock
+    	    stock2Blanco.setProducto(producto2);
+    	    stock2Blanco.setTalla(talla);
+    	    stock2Blanco.setColor(colorBlanco);
+    	    stockRepository.save(stock2Blanco);
+
+    	    Stock stock2Negro = new Stock();
+    	    stock2Negro.setCantidad(2); // 2 en stock
+    	    stock2Negro.setProducto(producto2);
+    	    stock2Negro.setTalla(talla);
+    	    stock2Negro.setColor(colorNegro);
+    	    stockRepository.save(stock2Negro);
+    	}
+
+    	// Añadir 2 de categoria zapatos y 2 de categoria pantalones
         
         //administrador
         Administrador administrador = new Administrador();

@@ -18,15 +18,15 @@ public class Stock {
     private Integer cantidad;
 
     @ManyToOne
-    @JoinColumn(name = "id_producto")
+    @JoinColumn(name = "idProducto")
     private Producto producto;
 
     @ManyToOne
-    @JoinColumn(name = "id_talla")
+    @JoinColumn(name = "idTalla")
     private Talla talla;
 
     @ManyToOne
-    @JoinColumn(name = "id_color")
+    @JoinColumn(name = "idColor")
     private Color color;
 
     
