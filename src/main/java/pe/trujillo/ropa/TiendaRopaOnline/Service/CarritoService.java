@@ -1,12 +1,11 @@
 package pe.trujillo.ropa.TiendaRopaOnline.Service;
 
-import java.util.List;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
+import jakarta.servlet.http.HttpSession;
 import pe.trujillo.ropa.TiendaRopaOnline.Model.Producto;
 
 @Service
@@ -28,10 +27,16 @@ public class CarritoService {
         carrito.eliminarProducto(producto, talla, color);
     }
 
-    public List<ItemCarrito> obtenerProductos() {
-        return carrito.obtenerProductos();
+    public Carrito obtenerProductos(HttpSession session) {
+        Carrito carrito = (Carrito) session.getAttribute("carrito");
+        
+        if (carrito == null) {
+            carrito = new Carrito();
+            session.setAttribute("carrito", carrito);
+        }
+        return carrito;
+        
     }
-
     public double calcularTotal() {
         return carrito.precioTotal();
     }
@@ -39,8 +44,7 @@ public class CarritoService {
     public void vaciarCarrito() {
         carrito.vaciarCarrito();
     }
-    
-    // Obtener la cantidad de un producto con una talla y color específicos
+
     public int obtenerCantidad(Producto producto, String talla, String color) {
         return carrito.obtenerCantidad(producto, talla, color);
     }

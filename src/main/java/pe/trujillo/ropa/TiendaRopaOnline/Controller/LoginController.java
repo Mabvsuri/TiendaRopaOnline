@@ -11,7 +11,7 @@ import pe.trujillo.ropa.TiendaRopaOnline.Service.AdministradorService;
 @Controller
 public class LoginController {
 
-    private final AdministradorService administradorService; // Asegúrate de tener un servicio para manejar Administrador
+    private final AdministradorService administradorService;
 
     public LoginController(AdministradorService administradorService) {
         this.administradorService = administradorService;
@@ -19,8 +19,8 @@ public class LoginController {
 
     @GetMapping("/login")
     public String mostrarLogin(Model model) {
-        model.addAttribute("administrador", new Administrador()); // Crea un nuevo objeto Administrador
-        return "login"; // Retorna la vista de login
+        model.addAttribute("administrador", new Administrador());
+        return "login";
     }
 
     @PostMapping("/login")
@@ -28,11 +28,10 @@ public class LoginController {
         Administrador adminEncontrado = administradorService.encontrarPorNombreUsuario(administrador.getNombreUsuario());
 
         if (adminEncontrado != null && adminEncontrado.getContraseña().equals(administrador.getContraseña())) {
-            // Si las credenciales son correctas, redirigir a la página principal o al dashboard
-            return "redirect:/dashboard"; // Cambia a la ruta que desees
+            return "redirect:/dashboard";
         } else {
             model.addAttribute("error", "Credenciales incorrectas");
-            return "login"; // Retorna a la vista de login
+            return "login";
         }
     }
 }

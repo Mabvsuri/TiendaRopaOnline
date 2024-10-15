@@ -18,7 +18,12 @@
         <div th:if="${#lists.isEmpty(carrito.obtenerProductos())}" class="alert alert-warning text-center">
             El carrito está vacío.
         </div>
-
+		
+		<!-- Mensaje de error si no hay suficiente stock -->
+		<div th:if="${error}" class="alert alert-danger">
+		    <span th:text="${error}"></span>
+		</div>
+		
 		<!-- Tabla de productos en el carrito -->
 		<div class="table-responsive mt-4" th:if="${!#lists.isEmpty(carrito.obtenerProductos())}">
 		    <table class="table table-bordered table-hover">
@@ -43,9 +48,9 @@
 		                <td th:text="${item.producto.precio}">S/. 0.00</td>
 						<td>
 							<div class="input-group">
-							    <a th:href="@{/actualizarCantidad/{codigo}/{accion}(codigo=${item.producto.idProducto}, accion='disminuir')}" class="btn btn-outline-secondary">-</a>
+							    <a th:href="@{/actualizarCantidad/{codigo}/{accion}(codigo=${item.producto.idProducto}, accion='disminuir', talla=${item.talla}, color=${item.color})}" class="btn btn-outline-secondary">-</a>
 							    <span th:text="${item.cantidad}">1</span>
-							    <a th:href="@{/actualizarCantidad/{codigo}/{accion}(codigo=${item.producto.idProducto}, accion='aumentar')}" class="btn btn-outline-secondary">+</a>
+								<a th:href="@{/actualizarCantidad/{codigo}/{accion}(codigo=${item.producto.idProducto}, accion='aumentar', talla=${item.talla}, color=${item.color})}" class="btn btn-outline-secondary">+</a>
 							</div>
 						</td>
 		                <td th:text="${item.producto.precio * item.cantidad}">0.00</td>
@@ -67,7 +72,7 @@
                     </div>
                     <div class="card-footer text-right">
                         <a href="/productos" class="btn btn-secondary">Seguir Comprando</a>
-                        <a href="/comprar" class="btn btn-primary">Comprar Ahora</a>
+                        <a href="/nuevoCliente" class="btn btn-primary">Comprar Ahora</a>
                     </div>
                 </div>
             </div>

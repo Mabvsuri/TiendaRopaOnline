@@ -29,4 +29,9 @@ public class TallaService {
 	public void eliminarTalla(int codigo) {
 		tallaRepository.deleteById(codigo);
 	}
+	
+    public Talla obtenerPorNombre(String nombre) {
+        return tallaRepository.findByTalla(nombre);
+    }
+
 }

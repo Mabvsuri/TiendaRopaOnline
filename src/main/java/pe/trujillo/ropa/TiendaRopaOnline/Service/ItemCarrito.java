@@ -1,5 +1,7 @@
 package pe.trujillo.ropa.TiendaRopaOnline.Service;
 
+import java.util.Objects;
+
 import pe.trujillo.ropa.TiendaRopaOnline.Model.Producto;
 
 public class ItemCarrito {
@@ -41,5 +43,18 @@ public class ItemCarrito {
 
     public void setColor(String color) {
         this.color = color;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ItemCarrito that = (ItemCarrito) obj;
+        return producto.equals(that.producto) && talla.equals(that.talla) && color.equals(that.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(producto, talla, color);
     }
 }

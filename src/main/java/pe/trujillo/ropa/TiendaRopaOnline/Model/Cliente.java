@@ -1,33 +1,29 @@
 package pe.trujillo.ropa.TiendaRopaOnline.Model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "clientes")
 public class Cliente extends Persona {
 	
-    @NotBlank(message = "La dirección no puede estar vacía")
-    @Column(nullable = false)
-	private String dirección;
+	private String direccion;
 
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(String dirección) {
+	public Cliente(String direccion) {
 		super();
-		this.dirección = dirección;
+		this.direccion = direccion;
 	}
 
-	public String getDirección() {
-		return dirección;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setDirección(String dirección) {
-		this.dirección = dirección;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}	
 }
 

@@ -29,4 +29,8 @@ public class ColorService {
 	public void eliminarColor(int codigo) {
 		colorRepository.deleteById(codigo);
 	}
+	
+	public Color obtenerPorNombre(String nombre) {
+        return colorRepository.findByNombre(nombre);
+    }
 }

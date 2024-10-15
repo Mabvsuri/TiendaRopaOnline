@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Pedido</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Detalles del Pedido</h1>
+
+        <h2>Información del Pedido</h2>
+        <p><strong>ID del Pedido:</strong> <span th:text="${pedido.idPedido}"></span></p>
+        <p><strong>Fecha del Pedido:</strong> <span th:text="${pedido.fecha}"></span></p>
+        <p><strong>Estado del Pedido:</strong> <span th:text="${pedido.estado}"></span></p>
+        <p><strong>Cliente:</strong> <span th:text="${pedido.cliente.nombre}"></span></p>
+
+        <h2>Detalles del Pedido</h2>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Producto</th>
+                    <th>Talla</th>
+                    <th>Color</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+				
+                <tr th:each="detalle : ${detallesPedido}">
+                    <td th:text="${detalle.producto.nombre}"></td>
+                    <td th:text="${detalle.talla.talla}"></td>
+                    <td th:text="${detalle.color.nombre}"></td>
+                    <td th:text="${detalle.cantidad}"></td>
+                    <td th:text="${detalle.precio}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

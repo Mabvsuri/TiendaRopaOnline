@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -48,12 +49,12 @@ public class ProductoAdminController {
     @GetMapping("/productoDetalleAdmin/{codigo}")
     public String mostrarProducto(@PathVariable int codigo, Model modelo) {
         modelo.addAttribute("producto", productoService.hallarProducto(codigo));
-        return "admin/productoDetalleAdmin"; // Vista para el detalle del producto
+        return "admin/formProductosAdmin"; // Vista para el detalle del producto
     }
 
     // Guardar producto
-    @PostMapping("/save")
-    public String guardarProducto(Producto producto) {
+    @PostMapping("/saveProducto")
+    public String guardarProducto(@ModelAttribute Producto producto) {
         productoService.guardarProducto(producto);
         return "redirect:/admin/productosAdmin"; // Redirige a la lista de productos
     }

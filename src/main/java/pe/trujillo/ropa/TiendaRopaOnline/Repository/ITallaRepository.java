@@ -7,5 +7,6 @@ import pe.trujillo.ropa.TiendaRopaOnline.Model.Talla;
 
 @Repository
 public interface ITallaRepository extends JpaRepository<Talla, Integer> {
+	    Talla findByTalla(String talla);
 
 }
