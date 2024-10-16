@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Pedido</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Buscar Pedido</h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Buscar Pedido</h1>
 
-    <div th:if="${error}">
-        <p th:text="${error}" style="color: red;"></p>
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+
+        <form action="#" th:action="@{/buscarPedido}" method="post" class="border p-4 rounded bg-light shadow-sm">
+            <div class="form-group">
+                <label for="idPedido">Ingresa el ID del pedido:</label>
+                <input type="text" id="idPedido" name="idPedido" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+		<a href="/" class="btn btn-link">Volver a la página principal</a>
     </div>
 
-    <form action="#" th:action="@{/buscarPedido}" method="post">
-        <label for="idPedido">Ingresa el ID del pedido:</label>
-        <input type="text" id="idPedido" name="idPedido" required>
-        <button type="submit">Buscar</button>
-    </form>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

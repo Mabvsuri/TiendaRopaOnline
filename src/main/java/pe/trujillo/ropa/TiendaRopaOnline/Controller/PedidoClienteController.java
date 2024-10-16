@@ -16,7 +16,7 @@ public class PedidoClienteController {
     @Autowired
     private PedidoService pedidoService;
 
-    @GetMapping("/buscarPedido")
+    @GetMapping("/buscarPedidoListado")
     public String mostrarFormularioBuscarPedido() {
         return "buscarPedido";
     }

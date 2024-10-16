@@ -10,10 +10,9 @@
     <div class="container mt-5">
         <h1 class="mb-4">Listado de Productos</h1>
         
-        <!-- Botón para añadir producto -->
         <a href="/nuevoProducto" class="btn btn-primary mb-3">Añadir Producto</a>
+        <a href="/dashboard" class="btn btn-secondary mb-3">Volver al Dashboard</a>
 
-        <!-- Tabla de productos -->
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -31,16 +30,15 @@
                     <td th:text="${producto.descripcion}">Descripción del Producto</td>
                     <td th:text="${producto.precio}">0.00</td>
                     <td>
-                        <!-- Botón para editar producto -->
                         <a th:href="@{/editarProducto/{id}(id=${producto.idProducto})}" class="btn btn-warning btn-sm">Editar</a>
-                        <!-- Botón para eliminar producto -->
+                        <a th:href="@{/{id}/AdministrarStock(id=${producto.idProducto})}" class="btn btn-warning btn-sm">Administrar Stock</a>
                         <a th:href="@{/eliminarProductoAdmin/{codigo}(codigo=${producto.idProducto})}" class="btn btn-danger btn-sm">Eliminar</a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

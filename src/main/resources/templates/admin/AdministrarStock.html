@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Stock</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Administrar Stock para: [[${producto.nombre}]]</h1>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Talla</th>
+                <th>Color</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="stock : ${listaStock}">
+                <td th:text="${stock.talla.talla}"></td>
+                <td th:text="${stock.color.nombre}"></td>
+                <td th:text="${stock.cantidad}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mt-5">Añadir nueva combinación de stock</h2>
+    <form th:action="@{/{id}/guardarStock(id=${producto.idProducto})}" th:object="${nuevaCombinacionStock}" method="post">
+
+        <div class="form-group">
+            <label for="talla">Talla:</label>
+            <select id="talla" name="talla" class="form-control" required>
+                <option value="" disabled selected>Seleccione una talla</option>
+                <option th:each="talla : ${listaTallas}" 
+                        th:value="${talla.idTalla}" 
+                        th:text="${talla.talla}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="color">Color:</label>
+            <select id="color" name="color" class="form-control" required>
+                <option value="" disabled selected>Seleccione un color</option>
+                <option th:each="color : ${listaColores}" 
+                        th:value="${color.idColor}" 
+                        th:text="${color.nombre}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" th:field="*{cantidad}" id="cantidad" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+
+    <a th:href="@{/productosAdmin}" class="btn btn-secondary mt-3">Volver al listado de productos</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
