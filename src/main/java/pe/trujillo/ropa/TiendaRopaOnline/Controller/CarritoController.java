@@ -54,7 +54,7 @@ public class CarritoController {
 
    @GetMapping("/verCarrito")
     public String mostrarCarrito(Model modelo, HttpSession session) {
-        Carrito carrito = (Carrito) modelo.getAttribute("carrito");
+        Carrito carrito = (Carrito) session.getAttribute("carrito");
         
         if (carrito == null) {
             carrito = new Carrito();
@@ -65,7 +65,7 @@ public class CarritoController {
         modelo.addAttribute("total", carrito.precioTotal());
         modelo.addAttribute("stockService", stockService);
 
-        return "carrito"; 
+        return "Carrito"; 
     }
 
     @GetMapping("/actualizarCantidad/{codigo}/{accion}")
