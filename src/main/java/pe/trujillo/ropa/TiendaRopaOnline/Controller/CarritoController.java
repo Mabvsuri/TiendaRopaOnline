@@ -34,8 +34,11 @@ public class CarritoController {
                                   HttpSession session) {
         Carrito carrito = (Carrito) session.getAttribute("carrito");
         if (carrito == null) {
-            carrito = new Carrito();
-            session.setAttribute("carrito", carrito);
+        carrito = new Carrito();
+        session.setAttribute("carrito", carrito);
+        System.out.println("Carrito creado en la sesión.");
+        } else {
+        System.out.println("Carrito existente encontrado: " + carrito);
         }
         
         Producto producto = productoService.hallarProducto(codigo);
