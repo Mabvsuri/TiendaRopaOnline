@@ -51,4 +51,4 @@ jobs:
           app-name: 'TiendaRopaOnline'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C51CB7753BFC421189C92DE00F9ADF1A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FDDEDD8DDAF1453E940EB8E0BDCA0D3A }}
