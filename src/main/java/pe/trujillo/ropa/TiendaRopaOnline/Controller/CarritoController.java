@@ -6,8 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +16,6 @@ import pe.trujillo.ropa.TiendaRopaOnline.Service.ProductoService;
 import pe.trujillo.ropa.TiendaRopaOnline.Service.StockService;
 
 @Controller
-@SessionAttributes("carrito")
 public class CarritoController {
 
     @Autowired
@@ -26,21 +23,21 @@ public class CarritoController {
     
     @Autowired
     private StockService stockService;
-  
+
     @PostMapping("/añadirProducto/{codigo}")
     public String añadirAlCarrito(@PathVariable int codigo, 
                                   @RequestParam String talla, 
                                   @RequestParam String color, 
                                   RedirectAttributes redirectAttributes,
-                                  Model model) {
-        Carrito carrito = (Carrito) model.getAttribute("carrito");
+                                  HttpSession session) {
+        Carrito carrito = (Carrito) session.getAttribute("carrito");
         if (carrito == null) {
             carrito = new Carrito();
+            session.setAttribute("carrito", carrito);
         }
         
         Producto producto = productoService.hallarProducto(codigo);
         if (producto != null) {
-        	
             int cantidadActual = carrito.obtenerCantidad(producto, talla, color);
             
             if (stockService.hayStockDisponible(producto, talla, color, cantidadActual + 1)) {
@@ -50,7 +47,6 @@ public class CarritoController {
             }
         }
 
-        redirectAttributes.addFlashAttribute("carrito", carrito);
         return "redirect:/productos"; 
     }
 
@@ -70,7 +66,6 @@ public class CarritoController {
         return "carrito"; 
     }
 
-    
     @GetMapping("/actualizarCantidad/{codigo}/{accion}")
     public String actualizarCantidad(@PathVariable int codigo, 
                                       @PathVariable String accion, 
@@ -93,7 +88,6 @@ public class CarritoController {
                             if (stockService.hayStockDisponible(producto, talla, color, item.getCantidad() + 1)) {
                                 carrito.añadirProducto(producto, talla, color);
                             } else {
-                            	System.out.println("Error: No hay suficiente stock disponible."); // Para depuración
                                 redirectAttributes.addFlashAttribute("error", "No hay suficiente stock disponible para aumentar la cantidad.");
                                 return "redirect:/verCarrito";
                             }
@@ -104,7 +98,6 @@ public class CarritoController {
             }
         }
 
-        session.setAttribute("carrito", carrito);
         return "redirect:/verCarrito"; 
     }
 }
