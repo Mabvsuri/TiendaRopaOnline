@@ -12,12 +12,16 @@
 
     <div class="container mt-5">
         <h1 class="text-center">Carrito de Compras</h1>
+
+        <div th:if="${carrito != null && #lists.isEmpty(carrito.obtenerProductos())}" class="alert alert-warning text-center">
+    		El carrito está vacío.
+	</div>
 		
 		<div th:if="${error}" class="alert alert-danger">
 		    <span th:text="${error}"></span>
 		</div>
 		
-		<div class="table-responsive mt-4" th:if="${!#lists.isEmpty(carrito.obtenerProductos())}">
+		<div class="table-responsive mt-4" th:if="${carrito != null && !#lists.isEmpty(carrito.obtenerProductos())}">
 		    <table class="table table-bordered table-hover">
 		        <thead class="thead-light">
 		            <tr>
