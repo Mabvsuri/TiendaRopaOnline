@@ -35,7 +35,7 @@
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <tr th:each="item : ${carrito.obtenerProductos()}">
+		            <tr th:each="item : ${productos}">
 		                <td th:text="${item.producto.nombre}">Nombre del Producto</td>
 		                <td th:text="${item.producto.descripcion}">Descripción del Producto</td>
 		                <td th:text="${item.color}">Color</td>
