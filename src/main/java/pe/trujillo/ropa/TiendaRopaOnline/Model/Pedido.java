@@ -18,9 +18,10 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPedido;
-
+    
     private String estado;
     private Date fecha;
+    private double total;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
@@ -32,7 +33,7 @@ public class Pedido {
 	public Pedido() {
 	}
 
-	public Pedido(Integer idPedido, String estado, Date fecha, Cliente cliente, List<DetallePedido> detallePedidos) {
+	public Pedido(Integer idPedido, String estado, Date fecha, double total, Cliente cliente, List<DetallePedido> detallePedidos) {
 		this.idPedido = idPedido;
 		this.estado = estado;
 		this.fecha = fecha;
@@ -78,6 +79,14 @@ public class Pedido {
 
 	public void setDetallePedidos(List<DetallePedido> detallePedidos) {
 		this.detallePedidos = detallePedidos;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 }
 
