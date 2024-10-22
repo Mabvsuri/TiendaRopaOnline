@@ -52,13 +52,13 @@ public class CarritoController {
         return "redirect:/productos"; 
     }
 
-    @GetMapping("/verCarrito")
+   @GetMapping("/verCarrito")
     public String mostrarCarrito(Model modelo, HttpSession session) {
-        Carrito carrito = (Carrito) session.getAttribute("carrito");
+        Carrito carrito = (Carrito) modelo.getAttribute("carrito");
         
         if (carrito == null) {
             carrito = new Carrito();
-            session.setAttribute("carrito", carrito);
+            modelo.addAttribute("carrito", carrito);
         }
         
         modelo.addAttribute("productos", carrito.obtenerProductos());
