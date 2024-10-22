@@ -20,7 +20,7 @@ public class LoginController {
     @GetMapping("/login")
     public String mostrarLogin(Model model) {
         model.addAttribute("administrador", new Administrador());
-        return "login";
+        return "Login";
     }
 
     @PostMapping("/login")
@@ -31,7 +31,7 @@ public class LoginController {
             return "redirect:/dashboard";
         } else {
             model.addAttribute("error", "Credenciales incorrectas");
-            return "login";
+            return "Login";
         }
     }
 }
